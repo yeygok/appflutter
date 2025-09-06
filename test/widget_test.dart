@@ -1,9 +1,9 @@
-// This is a basic Flutter widget test.
+// Prueba básica de widget en Flutter.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Para interactuar con un widget en tu prueba, utiliza el WidgetTester
+// de flutter_test. Por ejemplo, puedes simular toques y desplazamientos.
+// También puedes usar WidgetTester para encontrar widgets hijos en el árbol,
+// leer textos y verificar los valores de las propiedades de los widgets.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,19 +11,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutterapp/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Prueba de incremento del contador', (WidgetTester tester) async {
+    // Construye la app y genera un frame.
+    await tester.pumpWidget(const LenguajesApp());
 
-    // Verify that our counter starts at 0.
+    // Verifica que el contador inicia en 0.
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
+    // Toca el ícono de "+" y genera un nuevo frame.
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
+    // Verifica que el contador haya incrementado.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
