@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'nombre': 'Python',
       'descripcion': 'Popular en ciencia de datos',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.png'
     },
     {
       'nombre': 'JavaScript',
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'nombre': 'Java',
       'descripcion': 'Muy usado en empresas',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.png'
     },
     {
       'nombre': 'C#',
@@ -65,13 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
       'nombre': 'C++',
       'descripcion': 'Lenguaje de sistemas',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.png'
     },
     {
       'nombre': 'Go',
       'descripcion': 'Lenguaje de Google',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.png'
     },
     {
       'nombre': 'Kotlin',
@@ -83,13 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
       'nombre': 'Swift',
       'descripcion': 'Lenguaje de Apple',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.png'
     },
     {
       'nombre': 'Ruby',
       'descripcion': 'Lenguaje para web',
       'imagen':
-          'https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg'
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.png'
     },
   ];
 
