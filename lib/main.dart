@@ -1,125 +1,226 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const LenguajesApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LenguajesApp extends StatelessWidget {
+  const LenguajesApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'LenguajesApp',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedDrawerIndex = 0;
 
-  void _incrementCounter() {
+  final List<Map<String, String>> lenguajes = [
+    {
+      'nombre': 'Dart',
+      'descripcion': 'Lenguaje de Flutter',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png'
+    },
+    {
+      'nombre': 'Python',
+      'descripcion': 'Popular en ciencia de datos',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg'
+    },
+    {
+      'nombre': 'JavaScript',
+      'descripcion': 'Lenguaje de la web',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'
+    },
+    {
+      'nombre': 'Java',
+      'descripcion': 'Muy usado en empresas',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg'
+    },
+    {
+      'nombre': 'C#',
+      'descripcion': 'Lenguaje de Microsoft',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png'
+    },
+    {
+      'nombre': 'C++',
+      'descripcion': 'Lenguaje de sistemas',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg'
+    },
+    {
+      'nombre': 'Go',
+      'descripcion': 'Lenguaje de Google',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg'
+    },
+    {
+      'nombre': 'Kotlin',
+      'descripcion': 'Lenguaje para Android',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.png'
+    },
+    {
+      'nombre': 'Swift',
+      'descripcion': 'Lenguaje de Apple',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg'
+    },
+    {
+      'nombre': 'Ruby',
+      'descripcion': 'Lenguaje para web',
+      'imagen':
+          'https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg'
+    },
+  ];
+
+  void _onSelectDrawerItem(int index) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _selectedDrawerIndex = index;
+      Navigator.pop(context);
     });
+  }
+
+  void _showMessage(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(mensaje)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text('Lenguajes de Programación'),
+        backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            tooltip: 'Información',
+            onPressed: () => _showMessage('App creada por yeygok'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            tooltip: 'Favoritos',
+            onPressed: () => _showMessage('¡Gracias por usar la app!'),
+          ),
+        ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text('Opciones',
+                  style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            ListTile(
+              leading: const Icon(Icons.list),
+              title: const Text('Ver lista'),
+              selected: _selectedDrawerIndex == 0,
+              onTap: () => _onSelectDrawerItem(0),
+            ),
+            ListTile(
+              leading: const Icon(Icons.view_module),
+              title: const Text('Ver CardView'),
+              selected: _selectedDrawerIndex == 1,
+              onTap: () => _onSelectDrawerItem(1),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body:
+          _selectedDrawerIndex == 0 ? _buildListaLenguajes() : _buildCardView(),
+    );
+  }
+
+  Widget _buildListaLenguajes() {
+    return ListView.builder(
+      itemCount: lenguajes.length,
+      itemBuilder: (context, index) {
+        final lenguaje = lenguajes[index];
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(lenguaje['imagen']!),
+          ),
+          title: Text(lenguaje['nombre']!),
+          subtitle: Text(lenguaje['descripcion']!),
+        );
+      },
+    );
+  }
+
+  Widget _buildCardView() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.8,
+      ),
+      itemCount: lenguajes.length,
+      itemBuilder: (context, index) {
+        final lenguaje = lenguajes[index];
+        return Card(
+          elevation: 4,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(12)),
+                  child: Image.network(
+                    lenguaje['imagen']!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      lenguaje['nombre']!,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      lenguaje['descripcion']!,
+                      style: const TextStyle(fontSize: 13),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
