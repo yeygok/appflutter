@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/language.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Determina si la ruta apunta a un asset local
 bool _isLocal(String path) => !path.startsWith('http');
@@ -43,44 +44,104 @@ class LanguageListTile extends StatelessWidget {
 }
 
 // Card para vista en grilla
-class LanguageCard extends StatelessWidget {
+class LanguageCard extends StatefulWidget {
   final Language language;
   const LanguageCard({super.key, required this.language});
 
   @override
+  State<LanguageCard> createState() => _LanguageCardState();
+}
+
+class _LanguageCardState extends State<LanguageCard> {
+  bool _hover = false;
+
+  Future<void> _openDocs() async {
+    final url = widget.language.urlDocumentacion;
+    if (url == null) return;
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('URL inválida')),
+        );
+      }
+      return;
+    }
+    final ok = await canLaunchUrl(uri)
+        ? await launchUrl(
+            uri,
+            mode: LaunchMode.externalApplication,
+            webOnlyWindowName: '_blank',
+          )
+        : false;
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No se pudo abrir la documentación')),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12)),
-              child: buildLanguageImage(language.imagen, fit: BoxFit.cover),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+    final elev = _hover ? 8.0 : 4.0;
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: AnimatedScale(
+        scale: _hover ? 1.03 : 1.0,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+        child: GestureDetector(
+          onTap: _openDocs,
+          child: Card(
+            elevation: elev,
+            shadowColor: Colors.black26,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  language.nombre,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(14)),
+                    child: buildLanguageImage(widget.language.imagen,
+                        fit: BoxFit.cover),
+                  ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  language.descripcion,
-                  style: const TextStyle(fontSize: 13),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.language.nombre,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                          ),
+                          if (widget.language.urlDocumentacion != null)
+                            const Icon(Icons.open_in_new,
+                                size: 16, color: Colors.blueGrey),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        widget.language.descripcion,
+                        style: const TextStyle(fontSize: 13),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
