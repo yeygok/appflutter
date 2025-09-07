@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import '../models/language.dart';
 
+// Determina si la ruta apunta a un asset local
+bool _isLocal(String path) => !path.startsWith('http');
+
+// Widget helper para cargar imagen (asset o red). Nota: SVG local no se renderiza nativamente sin paquete extra.
+Widget buildLanguageImage(String path, {BoxFit fit = BoxFit.cover}) {
+  if (_isLocal(path)) {
+    if (path.toLowerCase().endsWith('.svg')) {
+      // Fallback simple para SVG local (mostrar ícono genérico) a menos que se agregue flutter_svg.
+      return Container(
+        color: Colors.grey.shade200,
+        alignment: Alignment.center,
+        child: const Icon(Icons.image, color: Colors.grey),
+      );
+    }
+    return Image.asset(path, fit: fit);
+  }
+  return Image.network(path, fit: fit);
+}
+
 // Item de lista para mostrar un lenguaje
 class LanguageListTile extends StatelessWidget {
   final Language language;
@@ -9,8 +28,13 @@ class LanguageListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(language.imagen),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: SizedBox(
+          height: 48,
+          width: 48,
+          child: buildLanguageImage(language.imagen, fit: BoxFit.cover),
+        ),
       ),
       title: Text(language.nombre),
       subtitle: Text(language.descripcion),
@@ -35,10 +59,7 @@ class LanguageCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.network(
-                language.imagen,
-                fit: BoxFit.cover,
-              ),
+              child: buildLanguageImage(language.imagen, fit: BoxFit.cover),
             ),
           ),
           Padding(

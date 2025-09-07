@@ -21,8 +21,7 @@ const languagesData = <Language>[
   Language(
     nombre: 'Python',
     descripcion: 'Popular en ciencia de datos',
-    imagen:
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.png',
+    imagen: 'assets/imagenes/python.png',
   ),
   Language(
     nombre: 'JavaScript',
@@ -33,8 +32,7 @@ const languagesData = <Language>[
   Language(
     nombre: 'Java',
     descripcion: 'Muy usado en empresas',
-    imagen:
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.png',
+    imagen: 'assets/imagenes/java.svg',
   ),
   Language(
     nombre: 'C#',
@@ -45,14 +43,12 @@ const languagesData = <Language>[
   Language(
     nombre: 'C++',
     descripcion: 'Lenguaje de sistemas',
-    imagen:
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.png',
+    imagen: 'assets/imagenes/c++.svg',
   ),
   Language(
     nombre: 'Go',
     descripcion: 'Lenguaje de Google',
-    imagen:
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.png',
+    imagen: 'assets/imagenes/go.jpg',
   ),
   Language(
     nombre: 'Kotlin',
@@ -69,7 +65,6 @@ const languagesData = <Language>[
   Language(
     nombre: 'Ruby',
     descripcion: 'Lenguaje para web',
-    imagen:
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.png',
+    imagen: 'assets/imagenes/ruby.jpg',
   ),
 ];
